@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@ant-design/compatible": "^1.0.8",
+        "@ant-design/compatible": "^5.1.1",
         "antd": "^4.16.3",
         "classnames": "^2.3.1",
         "codemirror": "^5.62.0",
@@ -15,9 +15,10 @@
         "mathjs": "^7.6.0",
         "mergely": "^4.3.1",
         "moment": "^2.29.4",
-        "npm-check": "^5.9.2",
+        "npm-check": "^6.0.1",
         "qs": "^6.10.1",
         "react": "^16.14.0",
+        "react-app-rewired": "^2.1.8",
         "react-day-picker": "^7.4.10",
         "react-dom": "^16.14.0",
         "react-grid-layout": "^0.16.6",
@@ -28,10 +29,9 @@
         "react-nl2br": "^0.6.1",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
+        "react-scripts": "^5.0.1",
         "react-table": "^6.11.5",
-        "sweetalert2": "^10.16.9",
-        "react-app-rewired": "^2.1.8",
-        "react-scripts": "^5.0.1"
+        "sweetalert2": "^10.16.9"
     },
     "scripts": {
         "start": "react-app-rewired start",

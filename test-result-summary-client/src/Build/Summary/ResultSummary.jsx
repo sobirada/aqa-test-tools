@@ -106,8 +106,7 @@ export default class ResultSummary extends Component {
                     jdkImpl = 'j9';
                 }
                 // use non-capture group to ignore words evaluation and release if present
-                const regex =
-                    /^jdk(\d+).?(?:-evaluation|-release)?-(\w+)-(\w+)-(\w+)/i;
+                const regex = /^jdk(\d+).?(?:-evaluation|-release)?-(\w+)-(\w+)-(\w+)/i;
                 const tokens = buildName.match(regex);
                 if (Array.isArray(tokens) && tokens.length > 4) {
                     jdkVersion = tokens[1];
@@ -169,14 +168,16 @@ export default class ResultSummary extends Component {
             childBuildsResult = setBuildsStatus(build, childBuildsResult);
         });
         builds.sort((a, b) => a.buildName.localeCompare(b.buildName));
-
         builds.forEach((build) => {
             const buildName = build.buildName.toLowerCase();
             if (getInfoFromBuildName(buildName)) {
-                const { jdkVersion, jdkImpl, level, group, platform, rerun } =
-                    getInfoFromBuildName(buildName);
-
-                const hasRerun = rerun ? rerun : false;
+                const {
+                    jdkVersion,
+                    jdkImpl,
+                    level,
+                    group,
+                    platform,
+                } = getInfoFromBuildName(buildName);
                 if (jdkVersion && jdkImpl && level && group && platform) {
                     buildMap[platform] = buildMap[platform] || {};
                     buildMap[platform][jdkVersion] =
@@ -213,7 +214,7 @@ export default class ResultSummary extends Component {
                             buildMap[platform][jdkVersion][jdkImpl][level][
                                 group
                             ].hasChildren = build.hasChildren;
-                        } else if (build.testSummary && !hasRerun) {
+                        } else if (build.testSummary) {
                             buildMap[platform][jdkVersion][jdkImpl][level][
                                 group
                             ].testSummary = buildMap[platform][jdkVersion][
@@ -253,26 +254,16 @@ export default class ResultSummary extends Component {
                                 group
                             ].testSummary.total += total;
                         }
-                        if (
-                            hasRerun &&
-                            !buildMap[platform][jdkVersion][jdkImpl][level][
-                                group
-                            ].rerunBuildUrl
-                        ) {
-                            buildMap[platform][jdkVersion][jdkImpl][level][
-                                group
-                            ].rerunBuildUrl = build.buildUrl;
-                        }
                     } else {
-                        buildMap[platform][jdkVersion][jdkImpl][level][group] =
-                            {
-                                buildResult: build.buildResult,
-                                testSummary: build.testSummary,
-                                buildUrl: build.buildUrl,
-                                buildId: build._id,
-                                hasChildren: build.hasChildren,
-                                rerunBuildUrl: hasRerun ? build.buildUrl : '',
-                            };
+                        buildMap[platform][jdkVersion][jdkImpl][level][
+                            group
+                        ] = {
+                            buildResult: build.buildResult,
+                            testSummary: build.testSummary,
+                            buildUrl: build.buildUrl,
+                            buildId: build._id,
+                            hasChildren: build.hasChildren,
+                        };
                     }
                 }
             }

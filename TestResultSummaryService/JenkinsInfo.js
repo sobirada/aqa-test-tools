@@ -49,28 +49,13 @@ class JenkinsInfo {
             job: buildName,
             build: buildNum,
         });
-        const size = await logStream.getSize();
+
         logger.debug(
             'JenkinsInfo: getBuildOutput() is waiting for 5 secs after getSize()'
         );
         await Promise.delay(5 * 1000);
 
-        // Due to 1G string limit and possible OOM in CI server and/or TRSS, only query the output < 50M
-        // Regular output should be 2~3M. In rare cases, we get very large output
-        // ToDo: we need to update parser to handle segmented output
-        if (size > -1) {
-            const limit = Math.floor(50 * 1024 * 1024);
-            if (size < limit) {
-                return await logStream.next(0);
-            } else {
-                logger.debug(
-                    `JenkinsInfo: getBuildOutput(): Output size ${size} > size limit ${limit}`
-                );
-                throw `Output size ${size} > size limit ${limit}`;
-            }
-        } else {
-            throw `Cannot get build output size: ${size}`;
-        }
+        return await logStream.getOutputText();
     }
 
     async getBuildInfo(url, buildName, buildNum) {

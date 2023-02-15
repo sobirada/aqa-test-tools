@@ -7,7 +7,6 @@ import {
     MinusCircleOutlined,
     StopOutlined,
     WarningOutlined,
-    InfoCircleOutlined,
 } from '@ant-design/icons';
 
 import { Tooltip } from 'antd';
@@ -52,8 +51,6 @@ class Cell extends Component {
                                     );
                                 }
                                 const result = groups[group].buildResult;
-                                const rerunBuildUrl =
-                                    groups[group].rerunBuildUrl;
                                 let element = '';
                                 if (!groups[group].testSummary) {
                                     element = (
@@ -95,26 +92,12 @@ class Cell extends Component {
                                                 ? 'Build Result is from TestBenchmarkParser (not CI build)'
                                                 : ''}{' '}
                                             <br />
-                                            Jenkins link:
-                                            <br />
-                                            {rerunBuildUrl ? (
-                                                <a
-                                                    href={rerunBuildUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    Rerun build
-                                                </a>
-                                            ) : (
-                                                ''
-                                            )}
-                                            <br />
                                             <a
                                                 href={groups[group].buildUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                Test build
+                                                Jenkins Link
                                             </a>
                                         </div>
                                     );
@@ -189,19 +172,6 @@ class Cell extends Component {
                                         <Tooltip title={<div>{element}</div>}>
                                             {linkInfo}
                                         </Tooltip>
-                                        {rerunBuildUrl && (
-                                            <InfoCircleOutlined
-                                                style={{
-                                                    position: 'absolute',
-                                                    color: 'orange',
-                                                    fontSize: '12px',
-                                                    top: -5,
-                                                    right: -5,
-                                                    background: 'white',
-                                                    borderRadius: '100%',
-                                                }}
-                                            />
-                                        )}
                                     </div>
                                 );
                             })}

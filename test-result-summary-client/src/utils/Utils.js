@@ -11,11 +11,7 @@ export const getInfoFromBuildName = (buildName) => {
     const tokens = buildName.match(regex);
     if (Array.isArray(tokens) && tokens.length > 5) {
         const [_, jdkVersion, jdkImpl, level, group, platform] = tokens;
-        let rerun = false;
-        if (buildName.includes('_rerun')) {
-            rerun = true;
-        }
-        return { jdkVersion, jdkImpl, level, group, platform, rerun };
+        return { jdkVersion, jdkImpl, level, group, platform };
     }
     return null;
 };
